@@ -20,8 +20,9 @@
   --s6: 64px;
   --s7: 96px;
 
-  --page: 1080px;
-  --gutter: clamp(20px, 5vw, 56px);
+  --page: 1240px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --measure: 62ch;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -92,7 +93,12 @@ main,
 
 /* ---------- hero ---------- */
 
+/* Hero fills the measure instead of leaving the right half empty. */
 .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  column-gap: var(--s7);
+  align-items: end;
   padding-block: var(--s7) var(--s6);
   border-bottom: 1px solid var(--rule);
 }
@@ -101,15 +107,17 @@ main,
   margin: 0;
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(40px, 7vw, 74px);
+  font-size: clamp(40px, 6vw, 70px);
   line-height: 1.04;
   letter-spacing: -0.02em;
 }
 
 .lede {
-  margin: var(--s3) 0 0;
-  max-width: 44ch;
-  font-size: 19px;
+  margin: 0;
+  padding-left: var(--s5);
+  border-left: 1px solid var(--rule);
+  max-width: var(--measure);
+  font-size: 18px;
   line-height: 1.55;
   color: var(--mute);
 }
@@ -165,7 +173,7 @@ main,
 
 .note {
   margin: var(--s5) 0 0;
-  max-width: 62ch;
+  max-width: var(--measure);
   font-size: 15px;
   line-height: 1.6;
   color: var(--mute);
@@ -180,9 +188,21 @@ main,
   border-top: 1px solid var(--rule);
 }
 
+/* Two-column editorial grid: identity + price left, scope right.
+   Fills the container so there's no dead half-column. */
 .tiers > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  column-gap: var(--s7);
+  align-items: start;
   padding-block: var(--s5);
   border-bottom: 1px solid var(--rule);
+}
+
+.tier-id {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Price sits in its own column so the three tiers compare at a glance. */
@@ -190,8 +210,7 @@ main,
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
-  column-gap: var(--s5);
-  margin-bottom: var(--s1);
+  column-gap: var(--s4);
 }
 
 .tier-head h3 {
@@ -220,7 +239,7 @@ main,
 }
 
 .tier-what {
-  margin: var(--s1) 0 0;
+  margin: var(--s2) 0 0;
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -228,9 +247,15 @@ main,
   color: var(--mute);
 }
 
+/* Scope column. */
+.tier-scope {
+  grid-column: 2;
+  min-width: 0;
+}
+
 .tier-detail {
-  margin: var(--s2) 0 0;
-  max-width: 58ch;
+  margin: 0;
+  max-width: var(--measure);
   font-size: 16px;
   line-height: 1.6;
   color: var(--ink);
@@ -238,13 +263,14 @@ main,
 
 /* ---------- quote ---------- */
 
+/* Quote spans the measure so the right half is used, not empty. */
 .quote blockquote { margin: 0; }
 
 .quote p {
   margin: 0;
-  max-width: 30ch;
+  max-width: 26ch;
   font-family: var(--serif);
-  font-size: clamp(26px, 4vw, 46px);
+  font-size: clamp(26px, 3.6vw, 42px);
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
@@ -262,14 +288,31 @@ main,
 
 /* ---------- contact ---------- */
 
-.contact { padding-block: var(--s7); }
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: var(--s7);
+  align-items: start;
+  padding-block: var(--s7);
+}
+
+.contact > h2 { grid-column: 1; margin: 0 0 var(--s3); }
 
 .who {
-  margin: 0 0 var(--s5);
-  max-width: 56ch;
+  grid-column: 1;
+  margin: 0;
+  max-width: var(--measure);
   font-size: 18px;
   line-height: 1.55;
   color: var(--ink);
+}
+
+.contact .mail {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-self: end;
+  align-self: center;
+  margin: 0;
 }
 
 .mail {
@@ -301,11 +344,45 @@ main,
 
 /* ---------- small screens ---------- */
 
+@media (max-width: 900px) {
+  /* Two-column tiers collapse to one before the measure gets too narrow. */
+  .tiers > li {
+    grid-template-columns: 1fr;
+    row-gap: var(--s3);
+  }
+  .tier-scope { grid-column: 1; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    row-gap: var(--s4);
+    align-items: start;
+  }
+  .lede {
+    padding-left: 0;
+    padding-top: var(--s3);
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+    row-gap: var(--s5);
+  }
+  .contact .mail {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+}
+
 @media (max-width: 720px) {
   .stats { grid-template-columns: 1fr; gap: var(--s3); }
   .stats span { max-width: none; }
   .tier-head { grid-template-columns: 1fr; row-gap: var(--s1); }
   .quote p { max-width: none; }
+  .note,
+  .who,
+  .tier-detail { max-width: none; }
 }
 
 @media (max-width: 480px) {
