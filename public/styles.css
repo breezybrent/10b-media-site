@@ -1,5 +1,8 @@
-/* 10b.media — editorial, type-led.
-   Palette: warm paper + ink + one signal red. No gradients, no glass. */
+/* 10b.media — brent szklaruk-salazar
+   Personal brand site for an exec social video lead.
+
+   Design posture: editorial, type-led, no decoration that isn't information.
+   Warm paper + ink + one signal red. No gradients, no glass, no card soup. */
 
 :root {
   --paper: #f4f2ed;
@@ -39,6 +42,7 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -61,10 +65,11 @@ body {
 
 .nav {
   position: sticky; top: 0; z-index: 20;
-  height: var(--nav-h);
+  min-height: var(--nav-h);
   display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
   padding: 0 var(--pad);
-  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  background: color-mix(in oklab, var(--paper) 90%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
 }
@@ -73,16 +78,19 @@ body {
   font-family: var(--serif);
   font-size: 23px; letter-spacing: -0.01em;
   color: var(--ink); text-decoration: none;
+  flex: none;
+  display: inline-flex; align-items: center;
+  min-height: 44px;
 }
 .mark span { color: var(--signal); }
 
-.nav nav { display: flex; gap: clamp(14px, 2.4vw, 30px); }
+.nav nav { display: flex; gap: clamp(12px, 2vw, 26px); }
 .nav nav a {
   font-family: var(--mono);
   font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--ink-soft); text-decoration: none;
   display: inline-flex; align-items: center;
-  min-height: 44px;                       /* touch target on mobile */
+  min-height: 44px;
   padding: 0 2px;
   border-bottom: 1px solid transparent;
   transition: color 0.18s, border-color 0.18s;
@@ -92,7 +100,7 @@ body {
 
 /* ---------- hero ---------- */
 
-.hero { padding: clamp(52px, 11vh, 120px) var(--pad) clamp(40px, 7vh, 80px); }
+.hero { padding: clamp(52px, 11vh, 118px) var(--pad) clamp(40px, 7vh, 78px); }
 
 .kicker {
   display: inline-flex; align-items: center; gap: 9px;
@@ -109,29 +117,26 @@ body {
 .hero h1 {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(44px, 9.4vw, 132px);
-  line-height: 0.94;
+  font-size: clamp(42px, 8.6vw, 122px);
+  line-height: 0.95;
   letter-spacing: -0.028em;
   margin: 0;
   max-width: 15ch;
   text-wrap: balance;
 }
-.hero h1 em {
-  font-style: italic;
-  color: var(--signal);
-}
+.hero h1 em { font-style: italic; color: var(--signal); }
 
 .hero-foot {
   display: flex; flex-wrap: wrap; align-items: flex-end;
   justify-content: space-between; gap: clamp(20px, 4vw, 48px);
-  margin-top: clamp(30px, 6vh, 60px);
+  margin-top: clamp(30px, 6vh, 58px);
   padding-top: clamp(20px, 3vh, 32px);
   border-top: 1px solid var(--rule);
 }
 
 .lede {
-  margin: 0; max-width: 46ch;
-  font-size: clamp(15px, 1.35vw, 18px);
+  margin: 0; max-width: 48ch;
+  font-size: clamp(15px, 1.3vw, 18px);
   color: var(--ink-soft);
   text-wrap: pretty;
 }
@@ -143,43 +148,19 @@ body {
   color: var(--ink); text-decoration: none;
   border: 1px solid var(--ink);
   padding: 14px 22px; min-height: 48px;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
-.cta:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.cta:hover { background: var(--ink); color: var(--paper); }
 .cta:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
 .cta span { transition: transform 0.2s; }
 .cta:hover span { transform: translateX(3px); }
-
-/* ---------- client marquee ---------- */
-
-.clients {
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding: 20px 0;
-  overflow: hidden;
-}
-.marquee ul {
-  display: flex; gap: clamp(32px, 5vw, 72px);
-  list-style: none; margin: 0; padding: 0;
-  width: max-content;
-  animation: slide 42s linear infinite;
-}
-.marquee li {
-  font-family: var(--serif);
-  font-size: clamp(20px, 2.3vw, 30px);
-  color: var(--ink-soft);
-  white-space: nowrap;
-  transition: color 0.2s;
-}
-.marquee li:hover { color: var(--ink); }
-@keyframes slide { to { transform: translateX(-50%); } }
 
 /* ---------- section heads ---------- */
 
 .sec-head {
   display: flex; flex-wrap: wrap; align-items: baseline;
   justify-content: space-between; gap: 14px;
-  margin-bottom: clamp(28px, 5vh, 48px);
+  margin-bottom: clamp(26px, 5vh, 46px);
 }
 .sec-head h2 {
   font-family: var(--serif); font-weight: 400;
@@ -189,17 +170,17 @@ body {
 .sec-head p {
   margin: 0; color: var(--ink-soft);
   font-family: var(--mono); font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.06em; text-align: right;
 }
 
-/* ---------- proof / stats ---------- */
+/* ---------- the record / stats ---------- */
 
-.proof { padding: clamp(56px, 10vh, 110px) var(--pad); }
+.proof { padding: clamp(50px, 9vh, 104px) var(--pad); }
 
 .stats {
   list-style: none; margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--rule);
   border-top: 1px solid var(--rule);
@@ -207,26 +188,86 @@ body {
 }
 .stats li {
   background: var(--paper);
-  padding: clamp(22px, 3vw, 38px) clamp(18px, 2.4vw, 32px);
+  padding: clamp(20px, 2.8vw, 34px) clamp(16px, 2vw, 28px);
   display: flex; flex-direction: column; gap: 10px;
 }
 .stats b {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(38px, 5.6vw, 74px);
+  font-size: clamp(30px, 4.4vw, 62px);
   line-height: 0.95; letter-spacing: -0.03em;
   color: var(--ink);
 }
 .stats span {
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: 0.09em; text-transform: uppercase;
   color: var(--ink-soft); line-height: 1.5;
 }
 
-/* ---------- work ---------- */
+/* ---------- the roster ---------- */
 
-.work { padding: clamp(56px, 10vh, 110px) var(--pad); }
+.roster { padding: clamp(50px, 9vh, 104px) var(--pad); }
 
-.grid {
+.clients {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0 clamp(16px, 3vw, 40px);
+  border-top: 1px solid var(--rule);
+}
+.clients li {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.9vw, 24px);
+  color: var(--ink-soft);
+  padding: clamp(13px, 1.8vh, 19px) 0;
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.18s, padding-left 0.18s;
+}
+.clients li:hover { color: var(--ink); padding-left: 8px; }
+
+/* ---------- the track record ---------- */
+
+.work { padding: clamp(50px, 9vh, 104px) var(--pad); }
+
+.roles {
+  list-style: none; margin: 0; padding: 0;
+}
+.roles li {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  gap: clamp(16px, 3vw, 44px);
+  padding: clamp(20px, 3vh, 30px) 0;
+  border-top: 1px solid var(--rule);
+}
+.roles li:last-child { border-bottom: 1px solid var(--rule); }
+.roles li.now { background: color-mix(in oklab, var(--ink) 2.5%, transparent); }
+
+.roles .when {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-top: 5px;
+}
+.roles .what h3 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(21px, 2.5vw, 32px);
+  letter-spacing: -0.015em; margin: 0; line-height: 1.1;
+}
+.roles .what .org {
+  font-family: var(--mono); font-size: 11.5px;
+  letter-spacing: 0.05em;
+  color: var(--signal);
+  margin: 7px 0 0;
+}
+.roles .what > p:last-child {
+  margin: 12px 0 0; color: var(--ink-soft);
+  max-width: 58ch; text-wrap: pretty;
+}
+
+/* ---------- how i work ---------- */
+
+.craft { padding: clamp(50px, 9vh, 104px) var(--pad); }
+
+.beliefs {
   list-style: none; margin: 0; padding: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -234,107 +275,49 @@ body {
   background: var(--rule);
   border: 1px solid var(--rule);
 }
-.grid li {
+.beliefs li {
   background: var(--paper);
-  padding: clamp(24px, 3.4vw, 44px);
+  padding: clamp(22px, 3vw, 38px) clamp(18px, 2.4vw, 32px);
   display: flex; flex-direction: column; gap: 12px;
 }
-.grid li.tall { grid-row: span 2; }
-.grid .idx {
+.beliefs .idx {
   font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.14em; color: var(--signal);
 }
-.grid h3 {
+.beliefs .claim {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(24px, 2.7vw, 36px);
-  letter-spacing: -0.015em; margin: 0; line-height: 1.05;
+  font-size: clamp(21px, 2.4vw, 31px);
+  line-height: 1.12; letter-spacing: -0.015em;
+  margin: 0; color: var(--ink);
+  text-wrap: balance;
 }
-.grid p { margin: 0; color: var(--ink-soft); max-width: 42ch; text-wrap: pretty; }
-.grid .body-lg { font-size: clamp(15px, 1.25vw, 17px); color: var(--ink); }
-
-/* The tall cell earns its height with a real 9:16 frame, not empty space. */
-.frame { margin: auto 0 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.frame .screen {
-  width: min(148px, 42%);
-  aspect-ratio: 9 / 16;
-  border: 1px solid var(--ink);
-  display: grid; place-items: center;
-  background:
-    repeating-linear-gradient(135deg,
-      transparent 0 9px,
-      color-mix(in oklab, var(--ink) 5%, transparent) 9px 18px);
+.beliefs .why {
+  margin: 0; color: var(--ink-soft);
+  font-size: 15px; line-height: 1.6; max-width: 44ch;
+  text-wrap: pretty;
 }
-.frame .screen span {
-  font-family: var(--mono); font-size: 12px;
-  letter-spacing: 0.08em; color: var(--ink-soft);
-}
-.frame figcaption {
-  font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--ink-soft); text-align: center;
-}
-
-.grid .meta {
-  margin-top: auto; padding-top: 14px;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
-  border-top: 1px solid var(--rule);
-}
-
-/* ---------- pipeline ---------- */
-
-.pipeline { padding: clamp(56px, 10vh, 110px) var(--pad); border-top: 1px solid var(--rule); }
-
-.stages {
-  list-style: none; margin: 0; padding: 0;
-  counter-reset: stage;
-}
-.stages li {
-  counter-increment: stage;
-  display: grid;
-  grid-template-columns: 60px minmax(120px, 200px) 1fr;
-  gap: clamp(14px, 3vw, 40px);
-  align-items: baseline;
-  padding: clamp(20px, 3.4vh, 32px) 0;
-  border-top: 1px solid var(--rule);
-  transition: padding-left 0.22s, background 0.22s;
-}
-.stages li:last-child { border-bottom: 1px solid var(--rule); }
-.stages li:hover { padding-left: 14px; background: color-mix(in oklab, var(--ink) 3%, transparent); }
-
-.stages li::before {
-  content: counter(stage, decimal-leading-zero);
-  font-family: var(--mono); font-size: 12px;
-  color: var(--signal); letter-spacing: 0.1em;
-}
-.stages b {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(20px, 2.4vw, 30px);
-  letter-spacing: -0.01em; font-weight: 400;
-}
-.stages span { color: var(--ink-soft); text-wrap: pretty; }
 
 /* ---------- contact ---------- */
 
 .contact {
-  padding: clamp(60px, 13vh, 140px) var(--pad);
+  padding: clamp(56px, 12vh, 130px) var(--pad);
   border-top: 1px solid var(--rule);
-  text-align: left;
 }
 .contact h2 {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(30px, 5.4vw, 68px);
+  font-size: clamp(30px, 5.4vw, 66px);
   line-height: 1.02; letter-spacing: -0.024em;
-  margin: 0; max-width: 18ch;
+  margin: 0; max-width: 17ch;
 }
-.contact .sub { margin: 22px 0 34px; color: var(--ink-soft); max-width: 48ch; }
+.contact .sub { margin: 22px 0 34px; color: var(--ink-soft); max-width: 50ch; }
 .contact .mail {
   font-family: var(--serif);
-  font-size: clamp(24px, 4vw, 46px);
+  font-size: clamp(23px, 3.8vw, 44px);
   color: var(--signal); text-decoration: none;
   border-bottom: 2px solid var(--signal);
   padding-bottom: 4px;
-  display: inline-block;
+  display: inline-flex; align-items: center;
+  min-height: 44px;                    /* touch target on mobile */
   transition: opacity 0.2s;
 }
 .contact .mail:hover { opacity: 0.7; }
@@ -354,20 +337,22 @@ body {
 
 /* ---------- responsive ---------- */
 
-@media (max-width: 780px) {
-  .grid { grid-template-columns: 1fr; }
-  .grid li.tall { grid-row: span 1; }
-  .stages li {
-    grid-template-columns: 44px 1fr;
-    grid-template-areas: "num title" ".  desc";
-  }
-  .stages li::before { grid-area: num; }
-  .stages b { grid-area: title; }
-  .stages span { grid-area: desc; }
+@media (max-width: 900px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .beliefs { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .nav { flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+  .nav nav { gap: 14px; }
+  .nav nav a { font-size: 11px; }
+
+  .roles li { grid-template-columns: 1fr; gap: 10px; }
+  .roles .when { padding-top: 0; }
 }
 
 @media (max-width: 460px) {
-  .nav nav { gap: 14px; }
-  .nav nav a { font-size: 11px; }
+  .sec-head p { text-align: left; }
+  .stats { grid-template-columns: 1fr; }
   .hero-foot { align-items: flex-start; }
 }

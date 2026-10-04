@@ -1,33 +1,48 @@
-/* 10b.media — progressive enhancement only. The page works with JS disabled. */
+/* 10b.media — progressive enhancement only.
+   The page is fully readable and navigable with JS disabled.
+   This only adds: current-section nav state and a scroll-reveal for the
+   long lower sections. Nothing here is load-bearing. */
 (() => {
   'use strict';
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const navLinks = Array.from(document.querySelectorAll('.nav nav a[href^="#"]'));
+  if (!navLinks.length) return;
 
-  // Marquee: duplicate the list once so translateX(-50%) loops seamlessly.
-  const marquee = document.querySelector('[data-marquee]');
-  if (marquee) {
-    const list = marquee.querySelector('ul');
-    if (list) {
-      const clone = list.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      // Kill tab-focus on the decorative copy.
-      clone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
-      marquee.appendChild(clone);
-    }
-    if (reduceMotion.matches) {
-      marquee.style.overflowX = 'auto';
-    }
-  }
+  const sections = navLinks
+    .map((a) => {
+      const id = a.getAttribute('href').slice(1);
+      const el = id ? document.getElementById(id) : null;
+      return el ? { link: a, el } : null;
+    })
+    .filter(Boolean);
 
-  // Keep the marquee from eating CPU when scrolled out of view.
-  if (marquee && 'IntersectionObserver' in window) {
-    let visible = true;
-    new IntersectionObserver((entries) => {
-      for (const e of entries) visible = e.isIntersecting;
-      marquee.querySelectorAll('ul').forEach((ul) => {
-        ul.style.animationPlayState = visible ? 'running' : 'paused';
-      });
-    }, { threshold: 0 }).observe(marquee);
-  }
+  if (!sections.length) return;
+
+  // Mark the section currently occupying the upper third of the viewport.
+  const setActive = () => {
+    const line = window.innerHeight / 3;
+    let current = null;
+    for (const s of sections) {
+      if (s.el.getBoundingClientRect().top <= line) current = s;
+    }
+    for (const s of sections) {
+      const on = s === current;
+      s.link.style.color = on ? 'var(--ink)' : '';
+      s.link.style.borderBottomColor = on ? 'var(--signal)' : '';
+    }
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      setActive();
+      ticking = false;
+    });
+  };
+
+  setActive();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 })();
