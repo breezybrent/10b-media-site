@@ -96,7 +96,7 @@ main,
 /* Hero fills the measure instead of leaving the right half empty. */
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   column-gap: var(--s7);
   align-items: end;
   padding-block: var(--s7) var(--s6);
@@ -313,6 +313,12 @@ main,
   justify-self: end;
   align-self: center;
   margin: 0;
+}
+
+/* Short email needs a right-hand companion, so it sits at the measure
+   edge rather than floating mid-column. */
+.contact {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
 }
 
 .mail {
