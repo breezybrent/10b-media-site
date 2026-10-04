@@ -171,17 +171,6 @@ main,
   color: var(--mute);
 }
 
-/* Label sets the note apart from the stat block above it. */
-.note-label {
-  display: block;
-  margin-bottom: var(--s1);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-
 /* ---------- tiers ---------- */
 
 .tiers {
@@ -192,16 +181,17 @@ main,
 }
 
 .tiers > li {
-  padding-block: var(--s4);
+  padding-block: var(--s5);
   border-bottom: 1px solid var(--rule);
 }
 
+/* Price sits in its own column so the three tiers compare at a glance. */
 .tier-head {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s2) var(--s4);
+  column-gap: var(--s5);
+  margin-bottom: var(--s1);
 }
 
 .tier-head h3 {
@@ -240,37 +230,10 @@ main,
 
 .tier-detail {
   margin: var(--s2) 0 0;
-  max-width: 68ch;
+  max-width: 58ch;
   font-size: 16px;
   line-height: 1.6;
   color: var(--ink);
-}
-
-/* Scope lists read as scannable columns, not run-on prose. */
-.includes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: var(--s1) var(--s4);
-  margin: var(--s3) 0 0;
-  padding: 0;
-  list-style: none;
-  max-width: 760px;
-}
-.includes li {
-  position: relative;
-  padding-left: 16px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--mute);
-}
-.includes li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.7em;
-  width: 6px;
-  height: 1px;
-  background: var(--accent);
 }
 
 /* ---------- quote ---------- */
@@ -341,7 +304,7 @@ main,
 @media (max-width: 720px) {
   .stats { grid-template-columns: 1fr; gap: var(--s3); }
   .stats span { max-width: none; }
-  .tier-head { flex-direction: column; align-items: flex-start; }
+  .tier-head { grid-template-columns: 1fr; row-gap: var(--s1); }
   .quote p { max-width: none; }
 }
 
